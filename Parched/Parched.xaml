@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Parched.Parched">
+
+	<Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="Font">
+                	<Setter.Value>
+                		<OnPlatform x:TypeArguements="Font" 
+                					iOS="HelveticaNeue-Light" 
+                					Android="Roboto-Light" 
+                					WinPhone="SegoeUI-Light"/>
+                	</Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

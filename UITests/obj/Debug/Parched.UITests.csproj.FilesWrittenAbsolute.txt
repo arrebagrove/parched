@@ -1,0 +1,7 @@
+/Users/krystins/Projects/Parched/UITests/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/Users/krystins/Projects/Parched/UITests/bin/Debug/Parched.UITests.dll.mdb
+/Users/krystins/Projects/Parched/UITests/bin/Debug/Parched.UITests.dll
+/Users/krystins/Projects/Parched/UITests/obj/Debug/Parched.UITests.dll
+/Users/krystins/Projects/Parched/UITests/obj/Debug/Parched.UITests.dll.mdb
+/Users/krystins/Projects/Parched/UITests/bin/Debug/Xamarin.UITest.dll
+/Users/krystins/Projects/Parched/UITests/bin/Debug/nunit.framework.dll

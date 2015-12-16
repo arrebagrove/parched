@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:Parched;assembly=Parched"
+			 x:Class="Parched.HomeView"
+			 BackgroundColor="#2196F3">
+	<ContentPage.Resources>
+
+        <ResourceDictionary>
+            <OnPlatform x:Key="FontStyle"
+                  x:TypeArguments="Font"
+                  iOS="HelveticaNeue-Light"
+                  Android="Roboto-Light"
+                  WinPhone="SegoeUI-Light" />
+            <OnPlatform x:Key="FontStyleBold"
+                  x:TypeArguments="Font"
+                  iOS="HelveticaNeue-Bold"
+                  Android="Roboto-Bold"
+                  WinPhone="SegoeUI-Bold" />
+<!--            <OnPlatform x:Key="SmallFont"
+            	x:TypeArguements="Double"
+            	iOS="18"
+            	Android="22"
+            	WinPhone="22"/>
+            <OnPlatform x:Key="MediumFont"
+            	x:TypeArguements="Double"
+            	iOS="34"
+            	Android="42"
+            	WinPhone="42"/>
+            <OnPlatform x:Key="LargeFont"
+            	x:TypeArguements="Double"
+            	iOS="64"
+            	Android="76"
+            	WinPhone="76"/>-->
+
+            <local:IntToStringConverter x:Key="intToStringConverter" />
+            <local:InvertedBooleanConverter x:Key="invertedBooleanConverter" />
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness"
+					iOS="0,20,0,0"
+					Android="0,0"
+					WinPhone="0,0">
+		</OnPlatform>
+	</ContentPage.Padding>
+
+	<ContentPage.Content>
+
+	<RelativeLayout HorizontalOptions="FillAndExpand" 
+			VerticalOptions="FillAndExpand">
+
+		<StackLayout x:Name="timerSection"
+			HorizontalOptions="CenterAndExpand" 
+			VerticalOptions="FillAndExpand"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                   			Property=Width,
+                                    		Factor=0}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                   			Property=Height,
+                                    		Factor=0.2}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
+                                   			Property=Width,
+                                    		Factor=1}">
+			<Label 
+				Font="{StaticResource FontStyleBold}"
+				Text="{Binding TimeLeft, StringFormat='{}{0:hh\\:mm}'}"
+				HorizontalOptions="Center"
+				FontSize="64"
+				TextColor="White"/>
+
+			<Label 
+				Font="{StaticResource FontStyle}"
+				Text="until next refill"
+				HorizontalOptions="Center"
+				FontSize="14"
+				TextColor="#BBDEFB"/>
+		</StackLayout>
+
+		<Button
+			x:Name="buttonFinishedEarly"
+			Text="Finished Early!"
+			Command="{Binding ResetTimerCommand}"
+			Font="{StaticResource FontStyle}"
+			BackgroundColor="#8BC34A"
+			TextColor="White"
+			FontSize="16"
+			HeightRequest="40"
+			HorizontalOptions="FillAndExpand"
+			VerticalOptions="End"
+			BorderRadius="0"
+
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=0}"
+	        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Height,
+	                                		Factor=0.5}"
+	        RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant, 
+	                                		Constant=40}"
+	        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=1}"/>
+
+		<Grid x:Name="bottomSectionMain" VerticalOptions="CenterAndExpand"
+			BackgroundColor="White" 
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=0}"
+	        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
+	                               			Property=Y, 
+                                        	ElementName=buttonFinishedEarly,
+                                        	Constant=40}"
+	        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Height,
+	                                		Factor=0.44}"
+	        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=1}">
+	        <Grid.RowDefinitions>
+		    	<RowDefinition Height="*"/>
+		    	<RowDefinition Height="Auto"/>
+		    </Grid.RowDefinitions>
+
+			<StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Padding="50">
+				<StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="CenterAndExpand">
+					<Label 
+						Font="{StaticResource FontStyleBold}"
+						Text="{Binding AmountConsumed, Converter={StaticResource intToStringConverter}}"
+						HorizontalOptions="Center"
+						FontSize="34"
+						TextColor="#212121"/>
+					<Label 
+						Font="{StaticResource FontStyle}"
+						Text="{Binding Units}"
+						FontAttributes="Bold"
+						HorizontalOptions="Center"
+						FontSize="20"
+						TextColor="#212121"/>
+				</StackLayout>
+
+				<Label 
+					Font="{StaticResource FontStyle}"
+					Text="drank today"
+					FontAttributes="Bold"
+					HorizontalOptions="Center"
+					FontSize="14"
+					TextColor="#727272"/>
+			</StackLayout>
+
+			<StackLayout 
+				Grid.Row="1"
+				HorizontalOptions="End"
+				VerticalOptions="End">
+				<StackLayout.Padding>
+					<OnPlatform x:TypeArguments="Thickness"
+								iOS="0,10"
+		                		Android="10, 10"
+		                		WinPhone="10, 10"/>
+				</StackLayout.Padding>
+				<Button
+					x:Name="btnSettings"
+					Image="settings.png"
+					WidthRequest="60"
+					HeightRequest="60"
+					BackgroundColor="Transparent"
+					/>
+			</StackLayout>
+		</Grid>
+
+		<Grid x:Name="bottomSectionSettings" 
+			BackgroundColor="White" 
+			VerticalOptions="CenterAndExpand" 
+			Padding="0"
+			RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=0}"
+	        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Height,
+	                                		Factor=1}"
+	        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Height,
+	                                		Factor=0.8}"
+	        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, 
+	                               			Property=Width,
+	                                		Factor=1}">
+	    <Grid.RowDefinitions>
+	   		<RowDefinition Height="25"/>
+	    	<RowDefinition Height="25"/>
+	    	<RowDefinition Height="Auto"/>
+	    	<RowDefinition Height="205"/>
+	    	<RowDefinition Height="*"/>
+	    </Grid.RowDefinitions>
+
+	    	<BoxView BackgroundColor="#2196F3" HeightRequest="25"/>
+
+	    	<StackLayout
+	    		Grid.RowSpan="2">
+		    	<Button 
+					x:Name="btnDone"
+					Image="check.png"
+					WidthRequest="60"
+					HeightRequest="60"
+					HorizontalOptions="End"
+					VerticalOptions="End"/>
+			</StackLayout>
+
+			<StackLayout Grid.Row="2" HorizontalOptions="Start" Padding="5,0">
+				<Label Text="SETTINGS" Font="{StaticResource FontStyleBold}" FontSize="12" TextColor="#212121"/>
+			</StackLayout>
+
+			<StackLayout Padding="10,5" Grid.Row="3" VerticalOptions="Start">
+				<TableView x:Name="tableViewSettings" BackgroundColor="White" IsEnabled="false" RowHeight="50">
+					<TableRoot>
+					<TableSection>
+		                <ViewCell>
+		                    <StackLayout Orientation="Horizontal" Padding="10,3">
+		                        <Label Text="Daily Amount" 
+								   Font="{StaticResource FontStyle}"
+								   TextColor="#212121"
+								   VerticalOptions="Center" />
+								<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+									<local:DoneEntry x:Name="entryDailyAmount"
+											Text="{Binding DailyAmount, Converter={StaticResource intToStringConverter}}"
+											TextColor="#2196F3"
+											VerticalOptions="Center"
+											Font="{StaticResource FontStyle}"
+											Keyboard="Numeric"
+											WidthRequest="75"/>
+									<Label Text="{Binding Units}" 
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#727272"
+										   VerticalOptions="Center"
+										   FontSize="15"/>
+								</StackLayout>
+		                    </StackLayout>
+		                </ViewCell>
+		                <ViewCell>
+		                    <StackLayout Orientation="Horizontal" Padding="10,5">
+		                        <Label Text="Size of Bottle" 
+								   Font="{StaticResource FontStyle}"
+								   TextColor="#212121"
+								   VerticalOptions="Center" />
+								<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+		                            <local:DoneEntry x:Name="entryBottleSize"
+											Text="{Binding BottleSize, Converter={StaticResource intToStringConverter}}"
+											TextColor="#2196F3"
+											Font="{StaticResource FontStyle}"
+											VerticalOptions="Center"
+											WidthRequest="75"/>
+									<Label Text="{Binding Units}" 
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#727272"
+										   VerticalOptions="Center"
+										   FontSize="15"/>
+								</StackLayout>
+		                    </StackLayout>
+		                </ViewCell>
+		                <ViewCell>
+		                    <StackLayout Orientation="Horizontal" Padding="10,5">
+		                        <Label Text="Start the Day At" 
+								   Font="{StaticResource FontStyle}"
+								   TextColor="#212121"
+								   VerticalOptions="Center"/>
+								<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="0">
+		                            <Button x:Name="btnDecreaseStartTime" 
+											Text="-"
+											TextColor="#2196F3"
+											Font="{StaticResource FontStyle}"
+											FontSize="22"
+											BackgroundColor="Transparent"
+											VerticalOptions="Center"
+											HorizontalOptions="End"
+											HeightRequest="35"
+											WidthRequest="40"
+											IsEnabled="{Binding MinimumStartTimeReached, Converter={StaticResource invertedBooleanConverter}}"/>
+									<Label Text="{Binding StartTime, Converter={StaticResource intToStringConverter}}" 
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#212121"
+										   VerticalOptions="Center"
+										   HorizontalOptions="End"/>
+									<Label Text="AM" 
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#212121"
+										   VerticalOptions="Center"
+										   HorizontalOptions="End"/>
+									<Button x:Name="btnIncreaseStartTime" 
+											Text="+"
+											TextColor="#2196F3"
+											Font="{StaticResource FontStyle}"
+											FontSize="22"
+											BackgroundColor="Transparent"
+											VerticalOptions="Center"
+											HorizontalOptions="End"
+											HeightRequest="35"
+											WidthRequest="40"
+											IsEnabled="{Binding MaximumStartTimeReached, Converter={StaticResource invertedBooleanConverter}}"/>
+								</StackLayout>
+		                    </StackLayout>
+		                </ViewCell>
+		                <ViewCell>
+		                    <StackLayout Orientation="Horizontal" Padding="10,5">
+		                        <Label Text="Unit of Measurement" 
+								   Font="{StaticResource FontStyle}"
+								   TextColor="#212121"
+								   VerticalOptions="Center"
+								   FontSize="18"/>
+								<StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+									<Label Text="oz" 
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#727272"
+										   VerticalOptions="Center"
+										   FontSize="15"
+										   IsVisible="{Binding IsOz}"/>
+									<Label Text="ml"
+										   Font="{StaticResource FontStyle}"
+										   TextColor="#727272"
+										   VerticalOptions="Center"
+										   FontSize="15"
+										   IsVisible="{Binding IsOz, Converter={StaticResource invertedBooleanConverter}}"/>
+		                            <Switch 
+		                            	IsToggled="{Binding IsOz}"/>
+		                       	</StackLayout>
+		                    </StackLayout>
+		                </ViewCell>
+		            </TableSection>
+		        	</TableRoot>
+				</TableView>
+			</StackLayout>
+
+			<StackLayout Grid.Row="4" Padding="10,5">
+				<Label Text="© Krystin Stutesman 2015" 
+					   HorizontalOptions="Start" 
+					   VerticalOptions="EndAndExpand"
+					   Font="{StaticResource FontStyle}"
+					   TextColor="#212121"
+					   FontSize="14"/>
+			</StackLayout>
+
+		</Grid>
+	</RelativeLayout>
+	</ContentPage.Content>
+</ContentPage>
